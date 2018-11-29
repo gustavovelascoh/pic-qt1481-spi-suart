@@ -12,6 +12,9 @@
 
 void main(void) {
 
+    OSCCON = 0b01111100;
+    trisbbits.trisb5 = 0;
+
     while (1){
 
         __delay_ms(300);
