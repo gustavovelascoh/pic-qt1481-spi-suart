@@ -12,8 +12,10 @@
 
 void main(void) {
 
+    WPUB = 0x00;
+    INTCON2bits.nRBPU = 1;
     OSCCON = 0b01111100;
-    trisbbits.trisb5 = 0;
+    TRISBbits.TRISB5 = 0;
 
     while (1){
 
