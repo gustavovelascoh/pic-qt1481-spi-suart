@@ -6,7 +6,25 @@
  * "Created in MPLAB Xpress"
  */
 
-void spi_init() {}
+#include "spi.h"
+#include "main_cfg.h"
+
+void spi_init() {
+    // SMP Middle; CKE Idle to Active;
+    SSPSTAT = 0x00;
+    // SSPEN enabled; WCOL no_collision; CKP Idle:High, Active:Low; SSPM FOSC/4;
+    // SSPOV no_overflow;
+    SSPCON1 = 0x31;
+    // SSPADD 0;
+    SSPADD = 0x00;
+
+    ADCON0 = 0;
+    ADCON1 = 0x0F; // Makes all I/O digital
+
+    SCK_TRIS;
+    SDO_TRIS;
+    SDI_TRIS;
+}
 
 uint8_t spi_rdwr(uint8_t tx_byte, uint8_t *rx_byte) {
     uint8_t temp;
@@ -22,7 +40,7 @@ uint8_t spi_rdwr(uint8_t tx_byte, uint8_t *rx_byte) {
         temp = 0;
 
         if (rx_byte)
-            rx_byte = SSPBUF;
+            *rx_byte = SSPBUF;
     }
   return (0);
 }
